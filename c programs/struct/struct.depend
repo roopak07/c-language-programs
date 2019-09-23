@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1554655756 source:e:\documents\struct\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1554666463 source:e:\documents\struct\stack.c
+	<stdio.h>
+	<conio.h>
+	<stdlib.h>
+

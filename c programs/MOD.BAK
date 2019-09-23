@@ -1,0 +1,13 @@
+#include<stdio.h>
+#include<conio.h>
+void main()
+{
+ int a=5,b=5,c=5,d;
+ clrscr();
+ printf("%d\t %d\t %d\t \n",++a + a++ + ++a);
+ printf("%d \n",a+++a);
+ d=a+++a;
+ printf("%d \n",d);
+ getch();
+
+}

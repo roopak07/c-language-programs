@@ -1,0 +1,11 @@
+#include<stdio.h>
+#include<conio.h>
+void main()
+{
+ int n,i[]={1,5,8,4,7,9};
+ clrscr();
+ n=sizeof(i);
+ printf("array size:%d \n",n);
+ getch();
+
+}
