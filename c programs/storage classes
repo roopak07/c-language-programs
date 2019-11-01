@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<conio.h>
+void incb();
+void inca();
+void incc();
+int i; // we can aslo decleare as "extern int i" global or extern variable decleration and search where its initialized
+void main()
+{
+ auto int a= 3;
+ register int c = 4;
+ printf("global or exrern i = %d \n",i);
+ if(1)
+ {
+  auto int a = 0;
+  register int c = 3;
+  printf("'auto a' inside if function = %d \n",a);
+  printf("'register c' inside if function = %d \n",c);
+ }
+ printf("'auto a' in main function = %d \n",a);
+ printf("'register c' in main function = %d \n",c);
+ inca();
+ inca();
+ inca();
+ incc();
+ incc();
+ incc();
+ incb();
+ incb();
+ incb();
+ getch();
+}
+void inca()
+{
+ auto int a=1;
+ a=a+1;
+ printf("auto inc a in function = %d \n",a);
+}
+void incc()
+{
+ register int c=1;
+ c=c+1;
+ printf("register c in function = %d \n",c);
+}
+void incb()
+{
+ static int b=1;
+ b=b+1;
+ printf("static b in function = %d \n",b);
+ i = 0;
+}
