@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define bit sizeof(int) // for 32 bit processor
+#define bit sizeof(int)*8 // for 32 bit processor
 int b[bit];
 int main()
 {
