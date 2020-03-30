@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include<math.h>
-int data;
+unsigned int data;
 int rev[32];
-int sum;
+unsigned int sum;
 void main()
 {
     printf("Enter any value: \n");
-    scanf("%d",&data);
-    printf("\n %d",sizeof(sum));
-    for(int i = 31; i>0 ;i--)
+    scanf("%u",&data);
+    printf("\n%d\n",sizeof(sum));
+    for(int i = 31; i>=0 ;i--)
     {
         rev[i] = data & 1;
         data=data>>1;
+        printf("%d",rev[i]);
     }
+    printf("\n");
     for(int i = 0; i<32 ;i++)
     {
         printf("%d",rev[i]);
@@ -21,5 +23,5 @@ void main()
     {
         sum = rev[i]*pow(2,i)+sum;
     }
-    printf("\n%d \n",sum);
+    printf("\n%u \n",sum);
 }
