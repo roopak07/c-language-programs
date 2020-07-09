@@ -10,7 +10,7 @@ int main()
 	printf("\nbit=%d",bit);
     for(int i=bit-1;i>=0;i--)
 	{
-		b[i] = val&1;
+		b[i] = val&1; // suppose val = 4, 0000 0100 & 0000 0001
 		val=val>>1;
 	}
 	printf("\n Binary number is:");
