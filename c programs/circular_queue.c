@@ -71,6 +71,7 @@ void deque()
     if(cq.rdi==size) // once rdi reaches to 5 it should become 0, till no:4 i.e 0,1,2,3,4, this condition will be false
         cq.rdi=0;
  printf("\n%d is deleted from the queue",cq.buf[cq.rdi]);
+ cq.buf[cq.rdi]=0; // removed element will be 0,i.e NULL
  cq.rdi++;
  cq.noc--;
  if(cq.noc==0) // if queue is empty make rdi=-1 and wri=-1 , since its the initial state when queue is empty
