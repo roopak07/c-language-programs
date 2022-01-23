@@ -8,6 +8,7 @@ void insert();
 void delet();
 uint8_t length();
 void display_data();
+void reset();
 int8_t front=-1, rear=-1, len=0;
 uint32_t linear_queue[queue_size];
 void main()
@@ -23,16 +24,9 @@ void main()
 		{
 			case 1: 
 					if(rear!=queue_size-1)
-					{
-						if(front > rear )
-						{
-								rear = -1;
-								front = -1;
-						}
 						insert();
-					}
 					else
-						printf("Queue is full\n");
+						printf("Queue reached max limit, rear=%d\n",rear);
 					break;
 			case 2:	delet();
 					break;
@@ -42,7 +36,10 @@ void main()
 			case 4: printf("rear:%d\nfront:%d", rear, front);
 					break;
 			case 5: if(length()==0)
-					printf("Queue is empty\n");
+					{
+						printf("Queue is empty\n");
+						reset();
+					}
 					else
 					display_data();
 					break;
@@ -66,8 +63,7 @@ void delet()
 	if((front==-1 && rear == -1) || front > rear)
 	{
 		printf("Queue is empty\n");
-		rear = -1;
-		front = -1;
+		reset();
 	}
 	else
 		front++;
@@ -92,4 +88,10 @@ void display_data()
 	{
 		printf("\t %d", linear_queue[i]);
 	}
+}
+
+void reset()
+{
+	rear=-1;
+	front=-1;
 }
