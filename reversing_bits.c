@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include<math.h>
+//Demo for removing commit
 unsigned int data;
 int rev[32];
 unsigned int sum;
