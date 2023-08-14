@@ -1,0 +1,205 @@
+ using Git
+Commands:
+Gitk – to show all commits in the folders and sub folders
+
+Gitk . – shows commits in the sub folder only
+
+Get checkout . – it will discard changes in the folder
+
+Git stash - Discard all the changes
+
+Git status - To check status of the branch or changes 
+
+Git checkout branch_name – to switch branch
+
+Git branch - to show present branch
+
+git checkout -b branch_name – creating a branch and doing checkout at the same time
+
+Git pull – it will pull the latest commits to the present branch
+
+Git log - Shows the commits
+
+git format-patch -20 HEAD --stdout > patch_name.patch – command for creating patch files with multiple commits ( -20 HEAD indicates no:of commits to take from head of the commit)
+
+git diff -u > file_name.patch – for creating patch file
+git push -u origin <branch> (or) git git push --set-upstream origin abc → push local branch to repository
+NOTE:push with the -u (short for --set-upstream)
+git format-patch -1 <commit_sha> - Create patch with a commit ID
+git tag <tag_name> - Create tag
+git push --tags – Push tag to repo
+git branch -m old-name new-name – Renaming a branch
+git apply --ignore-space-change --ignore-whitespace file_name.patch – for applying patch
+
+git diff commit_1 > ./abc.patch – to create patch file from  a commit
+
+git add --chmod=+x – file_name  - for providing executable permissions for a file and we can push this permission change to commit.
+
+Pull a branch to master branch
+git pull origin int_procsdk_ind_01_00_00
+
+
+Create branch
+
+git branch abc
+git git push --set-upstream origin abc
+Note: this will create a branch against repo , we can create a local branch and create PR against this branch
+
+
+Create patch file
+Command:
+git diff -u > file_name.patch
+git diff -u > mcu_plus_sdk_hsr.patch
+
+git diff -u > mdio.patch
+
+
+Apply patch file
+Command:
+git apply --ignore-space-change --ignore-whitespace file_name.patch
+
+git apply --ignore-space-change --ignore-whitespace rstp_frame_drop_fix.patch.patch
+
+Creating single patch using multiple files
+if we have changes in multiple files then commit those changes then use below commands
+creating patch 
+Lets say
+Commit_3 : unstagged changes
+Commit_2: my commit
+Commit_1: previous commit
+Command:
+git checkout .  – this will discard other untagged changes(may have .o and .bin files )
+here commit_3 will be discarded
+Commit_2: my commit
+Commit_1: previous commit
+command:
+git diff commit_1 > ./abc.patch
+it will consider all the commit after commit_3 , as we have only commit_2 after  commit_1 , it will create a patch with commit_2 changes 
+git diff 9638bc42f79cc67eb5c098dc8eea9398f364faf8> ./multicast_filter.patch
+
+REBASING
+>Rebase to Master
+git checkout master
+git pull --all
+git checkout branch_name
+git push origin +branch_name –force
+
+Rebase in case of merg conflicts 
+git checkout master
+git pull --all
+git checkout -
+git rebase master
+
+-> here you might get merge conflicts. just run "gmake gen-buildfiles" for AM64x and AM243x ( This is needed only if you see merge conflicts
+ )
+
+git add . ( This will add changed files to staging , this is the same which we do in git gui, select files for staging before committing the changes )
+git rebase --continue
+git push origin <branch> --force-with-lease
+
+
+REMOVING COMMITS FROM PR
+>if we want to remove commits from PR
+git reset --soft HEAD~no_of_commits
+git commit -m " Comment"
+git push origin +hsr_porting_mcusdk --force
+
+L1 switch commands
+L1 switch address : 10.24.51.222
+    1. Show patch
+    2. Configure patch 
+    3. Configure no patch
+
+
+To set 100 m speed
+In fusion folder run the below command in command prompt
+Need to set all the ports to 100M
+Since we are patch A9 TO B5 , A10 TO B6
+Need to set A9,A10, B5 and B6 to 100 M
+set_port_100M.bat spirent_port_number_1( i.e A9 for am437x)
+set_port_100M.bat spirent_port_number_2( i.e A10 for am437x)
+
+First time patching or L1 switch reset
+remove all patching
+example for C3:
+config port C3 disable
+config port C3 enable
+config port C3 speed 1000
+config port C3 autoneg disable
+Then patch the ports
+
+Using patch tool
+Creating patch
+- diff -ur OriginalFile UpdatedFile > PatchFile
+Applying patch
+patch.exe -i PATCH_FILE_NAME -d SOURCE_DIR -p0 or  patch -i PATCH_FILE_NAME -d SOURCE_DIR -N -p0 --verbose
+
+example 
+patch.exe -i C:\patch_tool\bin\patchFile.patch -d C:\patch_tool\bin\emac_MII_Rcv.asm -p0
+
+CONVERT TO UNIX2DOS USING BELOW COMMAND 
+unix2dos C:\ti\hsr-prp\am57x\pdk_19\processor_sdk_rtos_am57xx_08_01_00_09\pdk_am57xx_1_0_19\packages\ti\transport\timeSync_Copy\timeSync_reconfigure_intr.patch
+unix2dos C:\ti\hsr-prp\am57x\pdk_19\processor_sdk_rtos_am57xx_08_01_00_09\pdk_am57xx_1_0_19\packages\ti\transport\timeSync_Copy\timeSync_reconfigure_intr_repo.patch
+NOTE:
+Suppose patch is created in linux environment and the same patch we are applying in windows pc then need to convert the patch into dos format using “unix2dos” tool (converting Linux patch to windows patch ) 
+Suppose if we are doing reverse i.e if patch is created in windows environment and the same patch we want to apply in linux environment then we need to convert that patch into Linux using “dos2unix” tool tool (converting windows patch to linux patch ) 
+
+APPLY PATCH 
+timeSync_reconfigure_intr.patch ( this patch doesn’t contains any “a\” kind of path in the patch so using -p0 level )
+patch -i C:\ti\hsr-prp\am57x\pdk_19\processor_sdk_rtos_am57xx_08_01_00_09\pdk_am57xx_1_0_19\packages\ti\transport\timeSync_Copy\timeSync_reconfigure_intr.patch -d C:\ti\hsr-prp\am57x\pdk_19\processor_sdk_rtos_am57xx_08_01_00_09\pdk_am57xx_1_0_19\packages\ti\transport\timeSync_Copy -N -p0 –verbose
+
+timeSync_reconfigure_intr_repo.patch ( this patch contains “a\” kind of path in the patch so using -p1 level )
+patch -i C:\ti\hsr-prp\am57x\pdk_19\processor_sdk_rtos_am57xx_08_01_00_09\pdk_am57xx_1_0_19\packages\ti\transport\timeSync_Copy\timeSync_reconfigure_intr_repo.patch -d C:\ti\hsr-prp\am57x\pdk_19\processor_sdk_rtos_am57xx_08_01_00_09\pdk_am57xx_1_0_19\packages\ti\transport\timeSync_Copy -N -p1 –verbose
+NOTE:
+In the same patch if we have “a\abc\” kind of path then we need to give patch level as -p2
+
+_________________________________________________________________________________PATCHING_______________________________________________________________________________
+unix2dos C:\Users\x1073714\Documents\pdk19\timeSync_reconfigure_intr.patch
+patch -i C:\Users\x1073714\Documents\pdk19\timeSync_reconfigure_intr.patch -d C:\Users\x1073714\Documents\pdk19\timeSync -N -p0 --verbose
+
+Squashing commits
+In the branch you would like to combine the commits on, run:
+git rebase -i HEAD~(n number of commits back to review)
+example:
+git 
+This will open the text editor and you must switch the 'pick' in front of each commit with 'squash' if you would like these commits to be merged together. From documentation:
+p, pick = use commit
+s, squash = use commit, but meld into previous commit
+For example, if you are looking to merge all the commits into one, the 'pick' is the first commit you made and all future ones (placed below the first) should be set to 'squash'. If using vim, use :x in insert mode to save and exit the editor.
+Then to continue the rebase:
+git add . ( This step not required )
+
+git rebase –continue
+
+git push origin <branch> --force-with-lease
+
+git push origin hsr_prp_doc_update --force-with-lease
+
+
+For more on this and other ways to rewrite your commit history see this helpful post
+
+NOTE:
+To edit last commit’s commit message which is not pushed to repo, then use below command
+git commit –amend
+
+creating git tag - https://devconnected.com/how-to-create-git-tags/
+NOTE: we can create tags using gitk window
+Command to create tag
+git tag <tag_name>
+
+to check tags:
+git tag -n
+to push git tags: 
+git push --tags
+
+In order to create Git patch file for a specific commit, use the “git format-patch” command with the “-1” option and the commit SHA.
+$ git format-patch -1 <commit_sha>
+
+To rename a branch remotely( https://www.ionos.com/digitalguide/websites/web-development/renaming-a-git-branch/ )
+git branch -m old-name new-name
+git push origin --delete old-name
+git push origin -u new-name
+To push changes to a branch
+git push origin branch_name
+We cant to just git push for parent branch I.e we can do jut “git push” for master branch
+
