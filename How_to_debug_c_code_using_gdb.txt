@@ -2,80 +2,82 @@ install gdb tool using the below command
 sudo apt install gdb
 
 > compile the c code using below command
-gcc -g file_name.c
+gcc -g file_name.c or gcc -g -o <Excutable_name> <File_name.c>
 
 Note: it will generate "a.out" exutable
 
 > execute the code
-gdb a.out
+gdb a.out or gdb ./<Executable_name>
 
 > execute below command for displaying layout, we can see execution steps here
 layout next
 
-> to show code execute below code
+> Show code execute below code
 list or list start 1 30 ( it will disaply 30 lines of code )
 
-> keep break point at main ( starting point of code ) using below command
+> Keep break point at main ( starting point of code ) using below command
 b main
 
-> to start debugging run below command
+> Start debugging run below command
 start or run
 
-> to see variables use below command
+> See variables use below command
 watch variable name
 
-> to execute step by step run below command
+> Execute step by step run below command
 n or next
 
-> To execute function by function
+> Execute function by function
 step or s
 
 _______________________________________________________________________________________
-> To display variable value at each step
+> Display variable value at each step
 rwatch variable_name
 
-> To set value of any variable
+> Set value of any variable
 set var variable_name= variable_value
 
-> to see value of a variable
+> See value of a variable
 p variable_name
 
 > Print address of variable
 x variable_name or p &(variable_name)
 
-> print address in terms of one byte
+> Print address in terms of one byte
 x/b variable_name
 
-> print address in terms of bits
+> Print address in terms of bits
 x/10b variable
 
-> to add breakpoints
+> Add breakpoints
 b 13 ( program line number ) or b function_name 
 
-> to end debugging 
+> End debugging 
 q
 
-> To show watch points or break points
+> Show watch points or break points
 info watch or info breakpoints
 
-> To delet watch points or breakpoints
+> Delet watch points or breakpoints
 dele watchpoint_number or breakpoint_number
 
->To jump breakpoints
+> To jump breakpoints
 continue
 
 > Display in which function your in
 frame
 
-> To display7 previous function which are executed
+> Display7 previous function which are executed
 backtrace
 
 > if we want to jump to a specififc function
 frame frame_number
 
-> to display all the variables in a functipon
+> Display all the variables in a functipon
 info locals
 
-> to display all the functions
+> Display all the functions
 info function
 
+> Generate core dump file
+generate-core-file <core_dump_name>
