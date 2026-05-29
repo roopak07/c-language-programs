@@ -15,6 +15,7 @@ int delete();
 int length();
 int display();
 int reverse();
+int swap_adjacent();
 
 int main()
 {
@@ -27,6 +28,7 @@ int main()
         printf("3.Length\n");
         printf("4.Display\n");
         printf("5.Reverse\n");
+        printf("6.Swap adjecent nodes\n");
         printf("9.exit\n");
         printf("Enter your choise:\n");
         scanf("%d", &ch);
@@ -42,10 +44,36 @@ int main()
                     break;
             case 5: reverse();
                     break;
+            case 6: swap_adjacent();
+                    break;
             default: 
                     return 0;
         }
     }
+    return 0;
+}
+
+int swap_adjacent()
+{
+    struct node *prev=root, *current=root, *next=root;
+    int len=0, swap_ch=0;
+    len = length();
+    printf("Enter the node to swap:");
+    scanf("%d", &swap_ch);
+    if(len<2)
+        printf("There are no nodes to swap\n");
+    else if(swap_ch > len)
+        printf("Entered choise is outoff range\n");
+    else 
+    {
+        for(int i=1; i<(swap_ch-1); i++)
+            prev=prev->link;
+        current         = prev->link;
+        next            = current->link;
+        current->link   = next->link;
+        next->link      = current;
+        prev->link      = next;
+    }   
     return 0;
 }
 
