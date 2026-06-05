@@ -55,8 +55,8 @@ void deciaml_to_binary()
 }
 void toggle_even_odd_bits()
 {
-    int n=0xFFFFFFFF;
-    printf("Actual value:0x%X, even and odd bits toggled value:0x%X\n", n , (n^0x55555555));
+    int n=0x55555555;
+    printf("Actual value:0x%X, even and odd bits toggled value:0x%X\n", n , (n^0xFFFFFFFF));
 }
 
 void check_power_of_2()
