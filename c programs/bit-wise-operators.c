@@ -21,7 +21,17 @@ int main()
     toggle_even_odd_bits();
     deciaml_to_binary();
     swap_the_values();
+    unique_element_in_an_array();
     return 0;
+}
+
+void unique_element_in_an_array()
+{
+    int a[]={1,1,2,2,3,4,4,5,5};
+    int uniq=0;
+    for(int i=0; i<(sizeof(a)/sizeof(a[0])); i++)
+        uniq = uniq^a[i];
+    printf("Uniqueue element in an array is:%d \n", uniq);
 }
 
 void swap_the_values()
